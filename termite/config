@@ -1,0 +1,7 @@
+[colors]
+foreground = #ffffff
+background = rgba (0,0,0,0.8)
+
+[options]
+font = Monospace 11
+mouse_autohide = true
