@@ -54,7 +54,7 @@ for file in ${SETS[$1]}; do
         mv $path $olddir
     fi
     # Creates symbolic link
-    echo "Creating symlink to $file in ${CONFIG[$file]}"
+    echo "Creating symlink to $file in ${CONFIGS[$file]}"
     ln -s $dir/$file $path
 
 done
