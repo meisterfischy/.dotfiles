@@ -1,7 +1,7 @@
 #!/bin/bash
 ############################
 # .make.sh
-# This script creates symlinks from the home directory to any desired dotfiles in ~/dotfiles
+# This script creates symlinks from the home directory to any desired dotfiles in $HOME/dotfiles
 ############################
 
 ########## Variables
@@ -28,29 +28,29 @@ SETS=(      ["xorg"]="i3 i3status rofi rofi-pass picom termite zathura nvim .vim
     )
 
 # dotfiles directory
-dir=~/.dotfiles
+dir=$HOME/.dotfiles
 
 # old dotfiles backup directory
-olddir=~/.dotfiles_old
+olddir=$HOME/.dotfiles_old
 
 ##########
 
 # create dotfiles_old in homedir
-echo -n "Creating $olddir for backup of any existing dotfiles in ~ ..."
+echo -n "Creating $olddir for backup of any existing dotfiles in $HOME ..."
 mkdir -p $olddir
 echo "done"
 
-for file in "${SETS[$1]}"; do
+for file in ${SETS[$1]}; do
     
-    path="~/${CONFIG[$file]}/$file"
+    path="$HOME/${CONFIGS[$file]}/$file"
   
     # Checks if Link already exists 
-    if [-L $path]; then
+    if [ -L $path ]; then
         echo "Link already exists"
         continue
     # Checks if file exists and then moves it to $olddir
-    elif [-e $path]; then
-        echo "Moving any existing dotfiles from ~ to $olddir"
+    elif [ -e $path ]; then
+        echo "Moving any existing dotfiles from $HOME to $olddir"
         mv $path $olddir
     fi
     # Creates symbolic link
