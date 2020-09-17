@@ -47,14 +47,14 @@ for file in "${SETS[$1]}"; do
     # Checks if Link already exists 
     if [-L $path]; then
         echo "Link already exists"
+        continue
     # Checks if file exists and then moves it to $olddir
     elif [-e $path]; then
         echo "Moving any existing dotfiles from ~ to $olddir"
         mv $path $olddir
-    # Creates symbolic link
-    else
-        echo "Creating symlink to $file in ${CONFIG[$file]}"
-        ln -s $dir/$file $path
     fi
+    # Creates symbolic link
+    echo "Creating symlink to $file in ${CONFIG[$file]}"
+    ln -s $dir/$file $path
 
 done
