@@ -5,6 +5,10 @@ Plug 'preservim/nerdtree'
 
 Plug 'dense-analysis/ale'
 
+Plug 'Shougo/deoplete.nvim'
+Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
+
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
@@ -38,8 +42,18 @@ highlight LineNr ctermfg=grey
 
 autocmd BufWritePost *.tex silent! execute "!pdflatex % >/dev/null 2>&1" | redraw!
 
+" Use deoplete.
+let g:deoplete#enable_at_startup = 1
+
+" Use ALE as completion sources for all code.
+call deoplete#custom#option('sources', {
+\ '_': ['ale'],
+\})
+
 let g:ale_linters = {
-    \   'haskell': ['ghc', 'hlint'],
+    \   'haskell': ['ghc'],
+    \   'c': ['clang','gcc'],
+    \   'cpp':['clang'],
     \}
 
 " smart brackets 
