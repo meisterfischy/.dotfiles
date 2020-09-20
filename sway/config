@@ -23,7 +23,7 @@ set $menu dmenu_path | dmenu | xargs swaymsg exec --
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg /home/koe/Dokumente/Wallpaper/VioletEvergarden.jpg fill
+output * bg /home/koe/Dokumente/Wallpaper/wlts.png fill
 #
 # Example configuration:
 #
@@ -31,8 +31,8 @@ output * bg /home/koe/Dokumente/Wallpaper/VioletEvergarden.jpg fill
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
 
-output DVI-D-1 pos 1920 0 res 1920x1080@144Hz
-output HDMI-A-2 pos 0 0 res 1920x1080@60Hz
+#output DVI-D-1 pos 1920 0 res 1920x1080@144Hz
+#output HDMI-A-2 pos 0 0 res 1920x1080@60Hz
 
 ### Idle configuration
 #
@@ -64,7 +64,7 @@ output HDMI-A-2 pos 0 0 res 1920x1080@60Hz
 
 input * xkb_layout "de"
 
-input 7805:11600:ROCCAT_ROCCAT_Kova[+] pointer_accel -0.75
+#input 7805:11600:ROCCAT_ROCCAT_Kova[+] pointer_accel -0.75
 
 ### Key bindings
 #
@@ -77,8 +77,8 @@ input 7805:11600:ROCCAT_ROCCAT_Kova[+] pointer_accel -0.75
     bindsym $mod+Shift+q kill
 
     # Start your launcher
-    bindsym $mod+d exec "rofi -show run"
-    bindsym $mod+Tab exec "rofi -show window"
+    bindsym $mod+d exec "rofi window,drun,ssh,run -show drun -terminal termite"
+    bindsym $mod+p exec "rofi-pass"
 
     bindsym $mod+Shift+b exec "firefox"
 
@@ -99,10 +99,8 @@ input 7805:11600:ROCCAT_ROCCAT_Kova[+] pointer_accel -0.75
     bindsym XF86AudioLowerVolume exec "pamixer -d 5" 
     bindsym XF86AudioMute exec "pamixer -t"
 
-    #bindsym XF86AudioPause exec
-    #bindsym XF86AudioNext exec
-    #bindsym XF86AudioPrev exec 
-    #bindsym XF86AudioStop exec
+    bindsym XF86MonBrightnessUp exec "light -A 10"
+    bindsym XF86MonBrightnessDown exec "light -U 10"
 
 #
 # Moving around:
@@ -247,6 +245,6 @@ bar {
 }
 
 # Enable NumLock
-input * xkb_numlock enable
+# input * xkb_numlock enable
 
 include /etc/sway/config.d/*
