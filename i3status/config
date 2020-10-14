@@ -28,7 +28,7 @@ ethernet _first_ {
 
 battery 0 {
         format = "%status %percentage %remaining %emptytime"
-        format_down = "No battery"
+        format_down = ""
         path = "/sys/class/power_supply/BAT%d/uevent"
         low_threshold = 10
 }

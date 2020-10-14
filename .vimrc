@@ -1,5 +1,7 @@
-" vim-plug plugin manager
-call plug#begin()
+" Specify a directory for plugins
+" - For Neovim: stdpath('data') . '/plugged'
+" - Avoid using standard Vim directory names like 'plugin'
+call plug#begin('~/.vim/plugged')
 
 Plug 'preservim/nerdtree'
 
@@ -10,6 +12,7 @@ Plug 'vim-airline/vim-airline-themes'
 
 Plug 'mboughaba/i3config.vim'
 
+" Initialize plugin system
 call plug#end()
 
 " This enables automatic indentation as you type
@@ -39,19 +42,15 @@ highlight LineNr ctermfg=grey
 autocmd BufWritePost *.tex silent! execute "!pdflatex % >/dev/null 2>&1" | redraw!
 
 let g:ale_linters = {
-    \   'haskell' :['ghc', 'hlint'],
+    \   'haskell' :['ghc'],
     \   'c': ['clang','gcc'],
     \   'cpp':['clang'],
     \}
 
-" exit insert on terminal
-tnoremap <Esc> <C-\><C-n>
-
-nmap <silent> <F1> :ALEToggleBuffer<CR>
-nmap <silent> <F5> :NERDTreeToggle<CR>
-nmap <silent> <F7> :Newterm<CR>
-nmap <silent> <F8> :ALEDetail<CR>
-nmap <silent> <F4> :tabnew<CR>:e .<CR>
+nmap <silent> <F1> :ALEDetail<CR>
+nmap <silent> <F2> :NERDTreeToggle<CR>
+nmap <silent> <F3> :tabnew<CR>:e .<CR>
+nmap <silent> <C-a> :ALEDetail<CR>
 
 command -bar Newterm call Create_term()
 
@@ -60,12 +59,3 @@ command Zathura execute "!zathura " . (join(split(expand("%"), '\.')[:-2], ".") 
 
 " saves with sudo
 command W execute 'w !sudo tee "%"'
-
-" ===========
-" FUNCTIONS
-" ===========
-
-function Create_term()
-	tabnew
-    execute "terminal"
-endfunction
