@@ -47,6 +47,8 @@ floating_modifier $mod
 
 # start a terminal
 bindsym $mod+Return exec termite
+for_window [class="FXTerm"] floating enable
+bindsym $mod+Shift+Return exec termite --class FXTerm
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -210,5 +212,6 @@ default_floating_border none
 
 exec --no-startup-id "tilda"
 
-# vim: filetype=i3config
+for_window [instance="origin"] floating enable
 
+# vim: filetype=i3config
