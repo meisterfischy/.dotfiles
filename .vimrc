@@ -7,6 +7,8 @@ Plug 'preservim/nerdtree'
 
 Plug 'dense-analysis/ale'
 
+Plug 'Twinside/vim-hoogle'
+
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
@@ -39,7 +41,7 @@ set smarttab
 set number
 highlight LineNr ctermfg=grey
 
-autocmd BufWritePost *.tex silent! execute "!pdflatex % >/dev/null 2>&1" | redraw!
+autocmd BufWritePost *.tex silent! execute "!pdflatex % >/dev/null 2>&1 &" | redraw!
 
 let g:ale_linters = {
     \   'haskell' :['ghc'],
@@ -48,11 +50,13 @@ let g:ale_linters = {
     \}
 
 nmap <silent> <F1> :ALEDetail<CR>
-nmap <silent> <F2> :NERDTreeToggle<CR>
-nmap <silent> <F3> :tabnew<CR>:e .<CR>
+nmap <silent> <F5> :NERDTreeToggle<CR>
+nmap <silent> <F6> :tabnew<CR>:e .<CR>
 nmap <silent> <C-a> :ALEDetail<CR>
 
-command -bar Newterm call Create_term()
+" Hoogle is a Haskell API search engine
+au BufNewFile,BufRead *.hs map <buffer> <F12> :HoogleInfo 
+au BufNewFile,BufRead *.hs map <buffer> <C-F12> :HoogleClose<CR>
 
 " opens pdf file with zathura
 command Zathura execute "!zathura " . (join(split(expand("%"), '\.')[:-2], ".") . ".pdf") . " &"

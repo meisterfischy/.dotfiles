@@ -210,8 +210,6 @@ bar {
 default_border none
 default_floating_border none
 
-exec --no-startup-id "tilda"
-
 for_window [instance="origin"] floating enable
 
-# vim: filetype=i3config
+    # vim: filetype=i3config
