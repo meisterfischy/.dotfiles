@@ -5,14 +5,14 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'preservim/nerdtree'
 
-Plug 'dense-analysis/ale'
-
-Plug 'Twinside/vim-hoogle'
-
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 Plug 'mboughaba/i3config.vim'
+
+Plug 'Twinside/vim-hoogle'
+Plug 'neovimhaskell/haskell-vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Initialize plugin system
 call plug#end()
@@ -42,12 +42,6 @@ set number
 highlight LineNr ctermfg=grey
 
 autocmd BufWritePost *.tex silent! execute "!pdflatex % >/dev/null 2>&1 &" | redraw!
-
-let g:ale_linters = {
-    \   'haskell' :['ghc'],
-    \   'c': ['clang','gcc'],
-    \   'cpp':['clang'],
-    \}
 
 nmap <silent> <F1> :ALEDetail<CR>
 nmap <silent> <F5> :NERDTreeToggle<CR>
