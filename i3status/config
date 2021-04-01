@@ -15,6 +15,7 @@ general {
 }
 
 order += "ethernet _first_"
+order += "wireless wlp4s0"
 order += "battery 0"
 order += "disk /"
 order += "load"
@@ -24,6 +25,11 @@ order += "tztime local"
 ethernet _first_ {
         format_up = "E: %ip (%speed)"
         format_down = "E: down"
+}
+
+wireless wlp4s0 {
+        format_up = "W: %quality at %essid, %bitrate, %ip"
+        format_down = "W: down"
 }
 
 battery 0 {

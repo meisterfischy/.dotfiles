@@ -23,7 +23,7 @@ set $menu dmenu_path | dmenu | xargs swaymsg exec --
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg /home/koe/Dokumente/Wallpaper/wlts.png fill
+output * bg /home/koe/Dokumente/Wallpaper/WeLostTheSea.png fill
 #
 # Example configuration:
 #
@@ -82,9 +82,12 @@ input 1:1:AT_Translated_Set_2_keyboard xkb_options caps:escape
     # Kill focused window
     bindsym $mod+Shift+q kill
 
+    for_window [class="Bitwarden" instance="bitwarden"] floating enable
+    bindsym $mod+p exec "bitwarden-desktop"
+
     # Start your launcher
     bindsym $mod+Tab exec "rofi window,drun,ssh,run -show drun -terminal termite"
-    bindsym $mod+p exec "rofi-pass"
+    bindsym $mod+Shift+p exec "rofi-pass"
 
     bindsym $mod+Shift+b exec "firefox"
     
