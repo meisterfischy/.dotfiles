@@ -64,6 +64,17 @@ nmap <silent> <F6> :tabnew<CR>:e .<CR>
 au BufNewFile,BufRead *.hs map <F12> :HoogleInfo<CR>
 au BufNewFile,BufRead *.hs map <C-F12> :HoogleClose<CR>
 
+autocmd BufWritePost *.tex silent! execute "!pdflatex % >/dev/null 2>&1 &" | redraw!
+
+nmap <silent> <F1> :ALEDetail<CR>
+nmap <silent> <F5> :NERDTreeToggle<CR>
+nmap <silent> <F6> :tabnew<CR>:e .<CR>
+nmap <silent> <C-a> :ALEDetail<CR>
+
+" Hoogle is a Haskell API search engine
+au BufNewFile,BufRead *.hs map <buffer> <F12> :HoogleInfo 
+au BufNewFile,BufRead *.hs map <buffer> <C-F12> :HoogleClose<CR>
+
 " opens pdf file with zathura
 command Zathura execute "!zathura " . (join(split(expand("%"), '\.')[:-2], ".") . ".pdf") . " &"
 
