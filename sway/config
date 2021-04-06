@@ -87,7 +87,7 @@ input 1:1:AT_Translated_Set_2_keyboard xkb_options caps:escape
 
     # Start your launcher
     bindsym $mod+Tab exec "rofi window,drun,ssh,run -show drun -terminal termite"
-    bindsym $mod+Shift+p exec "rofi-pass"
+    bindsym $mod+Shift+p exec "wofipassmenu"
 
     bindsym $mod+Shift+b exec "firefox"
     
@@ -105,6 +105,10 @@ input 1:1:AT_Translated_Set_2_keyboard xkb_options caps:escape
 
     # Exit sway (logs you out of your Wayland session)
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+
+    bindsym $mod+m exec playerctl play-pause
+    bindsym $mod+Shift+m exec playerctl next
+    bindsym $mod+Ctrl+m exec playerctl previous
 
     bindsym XF86AudioRaiseVolume exec "pamixer -i 5"
     bindsym XF86AudioLowerVolume exec "pamixer -d 5" 
