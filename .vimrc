@@ -3,19 +3,18 @@
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.vim/plugged')
 
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+Plug 'frazrepo/vim-rainbow'
+Plug 'saltstack/salt-vim'
 Plug 'joshdick/onedark.vim'
-
-Plug 'lervag/vimtex'
-
+Plug 'lervag/vimtex', { 'for': 'tex' }
 Plug 'preservim/nerdtree'
-
 Plug 'vim-airline/vim-airline'
-
 Plug 'mboughaba/i3config.vim'
-
 Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all'}
 Plug 'monkoose/fzf-hoogle.vim'
-
 Plug 'neovimhaskell/haskell-vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
@@ -25,6 +24,11 @@ call plug#end()
 " This enables automatic indentation as you type
 filetype indent on
 
+" Enable rainbow Parentheses
+let g:rainbow_active = 1
+
+let g:rainbow_guifgs = ['RoyalBlue3', 'DarkOrange3', 'DarkOrchid3', 'FireBrick']
+let g:rainbow_ctermfgs = ['lightblue', 'lightgreen', 'yellow', 'red', 'magenta']
 
 " onedark.vim override: Don't set a background color when running in a terminal;
 " just use the terminal's background color
@@ -58,22 +62,53 @@ set smarttab
 
 " Line numbers
 set number
-highlight LineNr ctermfg=grey
+highlight LineNr ctermfg=240
 
 nmap <silent> <F1> :NERDTreeToggle<CR>
-
-" Hoogle is a Haskell API search engine
-au BufNewFile,BufRead *.hs map <F12> :HoogleInfo<CR>
-au BufNewFile,BufRead *.hs map <C-F12> :HoogleClose<CR>
-
-nmap <silent> <F5> :NERDTreeToggle<CR>
 
 " opens pdf file with zathura
 " command Zathura execute "!zathura " . (join(split(expand("%"), '\.')[:-2], ".") . ".pdf") . " &"
 
+
+
+"-- VimTex --" 
+
 " compiles a LaTeX document when the file is saved
 " autocmd BufWritePost *.tex silent! execute "!pdflatex % >/dev/null 2>&1 &" | redraw!
-autocmd BufWritePost *.tex :VimtexCompile<CR>
+
+au filetype *tex nmap <silent> <F4> :VimtexCompile<CR>
+
+let g:vimtex_view_method = 'zathura'
+let g:tex_flavor = 'latex'
+
+"-- VimTex --"
+
+
+
+"-- \Markdown --"
+
+" Treat all .md files as markdown
+autocmd BufNewFile,BufRead *.md set filetype=markdown
+
+" Set spell check to German
+autocmd FileType markdown setlocal spell spelllang=de_de
+
+" Configuration for vim-markdown
+let g:vim_markdown_conceal = 2
+let g:vim_markdown_conceal_code_blocks = 0
+let g:vim_markdown_math = 1
+let g:vim_markdown_toml_frontmatter = 1
+let g:vim_markdown_frontmatter = 1
+let g:vim_markdown_strikethrough = 1
+let g:vim_markdown_autowrite = 1
+let g:vim_markdown_edit_url_in = 'tab'
+let g:vim_markdown_follow_anchor = 1
+
+au FileType markdown nmap <silent> <F4> :MarkdownPreview<CR>
+
+"-- \Markdown --"
+
+
 
 " saves with sudo
 command W execute 'w !sudo tee "%"'
@@ -84,7 +119,9 @@ augroup HoogleMaps
   autocmd FileType haskell nnoremap <buffer> <space>hh :Hoogle <C-r><C-w><CR>
 augroup END
 
-""" coc.nvm config
+
+
+" coc.nvm config
 
 " Use tab for trigger completion with characters ahead and navigate.
 inoremap <silent><expr> <TAB>
@@ -100,9 +137,6 @@ endfunction
 
 " TextEdit might fail if hidden is not set.
 set hidden
-
-" Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
 
 " Use K to show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>

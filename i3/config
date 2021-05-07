@@ -11,9 +11,9 @@
 
 set $mod Mod1
 
-set $monc "DisplayPort-0"
+set $monc "DVI-D-0"
 set $monl "HDMI-A-0"
-set $monr "DisplayPort-1"
+set $monr "DisplayPort-0"
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -234,7 +234,7 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-#gaps inner 2
+#gaps inner 5
 
 # COLOR
 set $bg #000000AA
@@ -251,7 +251,9 @@ client.urgent                $pk    $pk     $bg     $bg
 bar {
 
     i3bar_command       i3bar --transparency
-    status_command      i3status -c ~/.config/i3status/config
+    status_command      i3status -c ~/.config/i3status/config | /home/koe/Dokumente/Stuff/i3spotifystatus/pystatus.py
+
+    font pango:FreeMono 10, FontAwesome 8
 
 	colors {
 		background 		$bg
@@ -267,4 +269,9 @@ default_floating_border none
 
 for_window [instance="origin"] floating enable
 
-    # vim: filetype=i3config
+for_window [class="Spotify"] move container to workspace $ws3
+exec --no-startup-id spotify 
+for_window [class="TeamSpeak 3"] move container to workspace $ws2
+#exec --no-startup-id teamspeak3
+
+# vim: filetype=i3config
