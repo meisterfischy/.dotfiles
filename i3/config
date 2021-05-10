@@ -53,9 +53,10 @@ bindsym $mod+Shift+a exec $(printf "pactl set-default-sink alsa_output.pci-0000_
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec termite
-for_window [class="FXTerm"] floating enable
-bindsym $mod+Shift+Return exec termite --class FXTerm
+
+bindsym $mod+Return exec alacritty
+for_window [instance="AlacrittyF"] floating enable
+bindsym $mod+Shift+Return exec alacritty --class AlacrittyF
 
 # kill focused window
 bindsym $mod+Shift+q kill
