@@ -46,17 +46,22 @@ bindsym XF86AudioStop exec --no-startup-id playerctl stop
 bindsym XF86AudioPrev exec --no-startup-id playerctl previous
 bindsym XF86AudioNext exec --no-startup-id playerctl next
 
+bindsym $mod+Shift+l exec "i3lock -i Dokumente/Sync/Pictures/Wallpaper/b_1.jpg -t -u"
+
 # Changes default sink
-bindsym $mod+Shift+a exec $(printf "pactl set-default-sink alsa_output.pci-0000_00_1f.3.analog-stereo\npactl set-default-sink alsa_output.usb-Kingston_HyperX_Cloud_Flight_Wireless_Headset-00.analog-stereo" | rofi -dmenu -mesg "Change Audio Sink?")
+bindsym $mod+Shift+a exec $(printf "pactl set-default-sink alsa_output.pci-0000_00_1f.3.analog-stereo\npactl set-default-sink alsa_output.usb-Kingston_HyperX_Cloud_Flight_Wireless_Headset-00.analog-stereo\npactl set-default-sink alsa_output.usb-BEHRINGER_UMC204HD_192k-00.analog-surround-40" | rofi -dmenu -mesg "Change Audio Sink?")
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
 # start a terminal
 
-bindsym $mod+Return exec alacritty
-for_window [instance="AlacrittyF"] floating enable
-bindsym $mod+Shift+Return exec alacritty --class AlacrittyF
+bindsym $mod+Return exec --no-startup-id termite
+for_window [title="XTerm"] floating enable
+bindsym $mod+Shift+Return exec "termite -t XTerm"
+#bindsym $mod+Return exec --no-startup-id alacritty
+#for_window [instance="AlacrittyF"] floating enable
+#bindsym $mod+Shift+Return exec alacritty --class AlacrittyF
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -64,20 +69,20 @@ bindsym $mod+Shift+q kill
 # start rofi (a program launcher)
 bindsym $mod+Tab exec "rofi window,drun,ssh,run -show drun -terminal termite"
 
-for_window [class="Bitwarden" instance="bitwarden"] floating enable
-for_window [class="Bitwarden" instance="bitwarden"] move scratchpad
-exec --no-startup-id "bitwarden-desktop"
-#bindsym $mod+p exec "bitwarden-desktop"
+bindsym $mod+p [class="KeePassXC"] scratchpad show
+for_window [class="KeePassXC" title="^.*KeePassXC$"] move scratchpad
+for_window [class="KeePassXC" title="^.*KeePassXC$"] mfloating enable
+exec --no-startup-id "keepassxc"
 
 bindsym $mod+Shift+b exec --no-startup-id "firefox"
 
 bindsym $mod+Shift+m exec --no-startup-id "spotify"
 
 # Make the currently focused window a scratchpad
-bindsym $mod+Shift+p move scratchpad
+bindsym $mod+Shift+minus move scratchpad
 
 # Show the first scratchpad window
-bindsym $mod+p scratchpad show
+bindsym $mod+minus scratchpad show
 
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
@@ -155,6 +160,8 @@ workspace $ws7 output $monc
 workspace $ws8 output $monl
 workspace $ws9 output $monr
 workspace $ws10 output $monc
+workspace $ws19 output $monc #Signal
+workspace $ws20 output $monc #Thunderbird 
 
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
@@ -265,14 +272,19 @@ bar {
 	}
 }
 
-default_border none
-default_floating_border none
+default_border pixel 3
+default_floating_border pixel 3
+hide_edge_borders smart
 
 for_window [instance="origin"] floating enable
 
 for_window [class="Spotify"] move container to workspace $ws3
 exec --no-startup-id spotify 
 for_window [class="TeamSpeak 3"] move container to workspace $ws2
-#exec --no-startup-id teamspeak3
-
+exec --no-startup-id redshift
+exec --no-startup-id signal-desktop
+for_window [class="Thunderbird"] move container to workspace $ws20
+exec --no-startup-id thunderbird
+for_window [class="Signal"] move container to workspace $ws19
+exec --no-startup-id dunst
 # vim: filetype=i3config

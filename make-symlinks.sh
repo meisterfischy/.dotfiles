@@ -24,7 +24,7 @@ CONFIGS=(   ["sway"]=".config"
     )
 
 declare -A SETS
-SETS=(      ["xorg"]="i3 i3status rofi rofi-pass picom alacritty zathura nvim .vimrc .xinitrc .bash_profile"
+SETS=(      ["xorg"]="i3 i3status rofi rofi-pass picom alacritty zathura nvim .vimrc .xinitrc .bash_profile" )
 
 # dotfiles directory
 dir=$HOME/.dotfiles
