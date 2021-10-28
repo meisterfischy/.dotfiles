@@ -30,6 +30,7 @@ let g:rainbow_active = 1
 let g:rainbow_guifgs = ['RoyalBlue3', 'DarkOrange3', 'DarkOrchid3', 'FireBrick']
 let g:rainbow_ctermfgs = ['lightblue', 'lightgreen', 'yellow', 'red', 'magenta']
 
+
 " onedark.vim override: Don't set a background color when running in a terminal;
 " just use the terminal's background color
 " `gui` is the hex color code used in GUI mode/nvim true-color mode
@@ -108,6 +109,10 @@ au FileType markdown nmap <silent> <F4> :MarkdownPreview<CR>
 
 "-- \Markdown --"
 
+
+" Terminal in vertical split
+set splitright
+nmap <silent> <F10> :vert term<CR>
 
 
 " saves with sudo
