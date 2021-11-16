@@ -3,33 +3,43 @@
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.vim/plugged')
 
-Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+" Rainbow Parentheses
 Plug 'frazrepo/vim-rainbow'
-Plug 'saltstack/salt-vim'
+" ColorScheme
 Plug 'joshdick/onedark.vim'
+" Vim for LaTeX
 Plug 'lervag/vimtex', { 'for': 'tex' }
+" File System Explorer
 Plug 'preservim/nerdtree'
+" Status/Tabline
 Plug 'vim-airline/vim-airline'
+" For the i3 config
 Plug 'mboughaba/i3config.vim'
+" For Hoogle
 Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all'}
 Plug 'monkoose/fzf-hoogle.vim'
+" Syntax Highlighting and Indentation for Haskell and Cabal
 Plug 'neovimhaskell/haskell-vim'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Asynchronous Lint Engine
+Plug 'dense-analysis/ale'
+" Code Completion
+Plug 'Shougo/deoplete.nvim'
+Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
 
 " Initialize plugin system
 call plug#end()
 
-" This enables automatic indentation as you type
-filetype indent on
+
+"/- Theme And Looks --"
 
 " Enable rainbow Parentheses
 let g:rainbow_active = 1
-
 let g:rainbow_guifgs = ['RoyalBlue3', 'DarkOrange3', 'DarkOrchid3', 'FireBrick']
 let g:rainbow_ctermfgs = ['lightblue', 'lightgreen', 'yellow', 'red', 'magenta']
 
+
+colorscheme onedark
 
 " onedark.vim override: Don't set a background color when running in a terminal;
 " just use the terminal's background color
@@ -44,14 +54,22 @@ if (has("autocmd") && !has("gui_running"))
   augroup END
 endif
 
-colorscheme onedark
-
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme='onedark'
+
 
 " Enable sytax highlighting
 filetype plugin on
 syntax enable
+
+"-- Theme And Looks -\"
+
+
+
+"/- Misc --"
+
+" This enables automatic indentation as you type
+filetype indent on
 
 " 1 tab == 4 spaces
 set shiftwidth=4
@@ -65,10 +83,17 @@ set smarttab
 set number
 highlight LineNr ctermfg=240
 
+" Open Nerd Tree
 nmap <silent> <F1> :NERDTreeToggle<CR>
 
-" opens pdf file with zathura
-" command Zathura execute "!zathura " . (join(split(expand("%"), '\.')[:-2], ".") . ".pdf") . " &"
+" Terminal in vertical split
+set splitright
+nmap <silent> <F10> :vert term<CR>
+
+" saves with sudo
+command W execute 'w !sudo tee "%"'
+
+"-- Misc -\"
 
 
 
@@ -76,6 +101,9 @@ nmap <silent> <F1> :NERDTreeToggle<CR>
 
 " compiles a LaTeX document when the file is saved
 " autocmd BufWritePost *.tex silent! execute "!pdflatex % >/dev/null 2>&1 &" | redraw!
+
+" opens pdf file with zathura
+" command Zathura execute "!zathura " . (join(split(expand("%"), '\.')[:-2], ".") . ".pdf") . " &"
 
 au filetype *tex nmap <silent> <F4> :VimtexCompile<CR>
 
@@ -86,37 +114,7 @@ let g:tex_flavor = 'latex'
 
 
 
-"-- \Markdown --"
-
-" Treat all .md files as markdown
-autocmd BufNewFile,BufRead *.md set filetype=markdown
-
-" Set spell check to German
-autocmd FileType markdown setlocal spell spelllang=de_de
-
-" Configuration for vim-markdown
-let g:vim_markdown_conceal = 2
-let g:vim_markdown_conceal_code_blocks = 0
-let g:vim_markdown_math = 1
-let g:vim_markdown_toml_frontmatter = 1
-let g:vim_markdown_frontmatter = 1
-let g:vim_markdown_strikethrough = 1
-let g:vim_markdown_autowrite = 1
-let g:vim_markdown_edit_url_in = 'tab'
-let g:vim_markdown_follow_anchor = 1
-
-au FileType markdown nmap <silent> <F4> :MarkdownPreview<CR>
-
-"-- \Markdown --"
-
-
-" Terminal in vertical split
-set splitright
-nmap <silent> <F10> :vert term<CR>
-
-
-" saves with sudo
-command W execute 'w !sudo tee "%"'
+"/- Haskell --"
 
 " Hoogle
 augroup HoogleMaps
@@ -124,40 +122,13 @@ augroup HoogleMaps
   autocmd FileType haskell nnoremap <buffer> <space>hh :Hoogle <C-r><C-w><CR>
 augroup END
 
+"-- Haskell -/"
 
 
-" coc.nvm config
 
-" Use tab for trigger completion with characters ahead and navigate.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+"/- Deoplete --"
 
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
+" Use deoplete.
+let g:deoplete#enable_at_startup = 1
 
-" TextEdit might fail if hidden is not set.
-set hidden
-
-" Use K to show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocActionAsync('doHover')
-  endif
-endfunction
-
-" Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
-" Remap for do codeAction of current line
-nmap <leader>ac  <Plug>(coc-codeaction)
-" Fix autofix problem of current line
-nmap <leader>qf  <Plug>(coc-fix-current)
+"-- Deoplete -\"
