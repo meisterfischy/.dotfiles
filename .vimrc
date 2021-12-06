@@ -22,10 +22,14 @@ Plug 'monkoose/fzf-hoogle.vim'
 Plug 'neovimhaskell/haskell-vim'
 " Asynchronous Lint Engine
 Plug 'dense-analysis/ale'
-" Code Completion
+" Code Completion with ale + completor
 Plug 'Shougo/deoplete.nvim'
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
+" Code Completion wih coc
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Dafny 
+Plug 'mlr-msft/vim-loves-dafny', {'for': 'dafny'}
 
 " Initialize plugin system
 call plug#end()
@@ -93,6 +97,9 @@ nmap <silent> <F10> :vert term<CR>
 " saves with sudo
 command W execute 'w !sudo tee "%"'
 
+" Fixes mouse not working properly in Vim
+set ttymouse=sgr
+
 "-- Misc -\"
 
 
@@ -110,6 +117,8 @@ au filetype *tex nmap <silent> <F4> :VimtexCompile<CR>
 let g:vimtex_view_method = 'zathura'
 let g:tex_flavor = 'latex'
 
+autocmd FileType tex set spell spelllang=de_DE
+
 "-- VimTex --"
 
 
@@ -126,9 +135,72 @@ augroup END
 
 
 
-"/- Deoplete --"
+"/- ALE + Deoplete --"
 
 " Use deoplete.
-let g:deoplete#enable_at_startup = 1
 
-"-- Deoplete -\"
+autocmd FileType haskell call deoplete#enable()
+
+let g:ale_linters = {
+            \   'haskell': ['ghc','hls','hlint','stylish-haskell','hindent'],
+            \}
+
+"-- ALE + Deoplete -\"
+
+
+
+"/- CoC --"
+
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+    \ pumvisible() ? "\<C-n>" :
+    \ <SID>check_back_space() ? "\<TAB>" :
+    \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+if has('nvim')
+    inoremap <silent><expr> <c-space> coc#refresh()
+else
+    inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+    if (index(['vim','help'], &filetype) >= 0)
+        execute 'h '.expand('<cword>')
+    elseif (coc#rpc#ready())
+        call CocActionAsync('doHover')
+    else
+        execute '!' . &keywordprg . " " . expand('<cword>')
+    endif
+endfunction
+
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+"-- Coc -\"
+
+
+"/- Dafny --"
+
+" (optional) set your leader key (the default is <\>)
+let mapleader=","
+" Tell Syntastic to:
+" - check files on save.
+" - but only check Dafny files when requested.
+let g:syntastic_mode_map = {
+        \ "mode": "active",
+        \ "passive_filetypes": ["dafny"] }
+
+"-- Dafny -\"

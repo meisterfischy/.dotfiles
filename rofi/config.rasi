@@ -1,8 +1,8 @@
 configuration {
  modi: "window,drun,ssh,run";
- theme: "custom";
  combi-modi: "window,drun,ssh,run";
  show-icons: true;
 }
+@theme "custom"
 //@theme "/usr/share/rofi/themes/sidebar.rasi"
 @theme "/usr/share/rofi/themes/sidebar.rasi"
