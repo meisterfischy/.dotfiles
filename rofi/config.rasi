@@ -4,5 +4,3 @@ configuration {
  show-icons: true;
 }
 @theme "custom"
-//@theme "/usr/share/rofi/themes/sidebar.rasi"
-@theme "/usr/share/rofi/themes/sidebar.rasi"
