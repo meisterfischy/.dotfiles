@@ -6,6 +6,7 @@ mouse_autohide = true
 [colors]
 foreground = #ffffff
 background = rgba (0,0,0,0.8)
+#background = #3f3f3f
 
 # 16 color space
 

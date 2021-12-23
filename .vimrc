@@ -28,8 +28,8 @@ Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
 " Code Completion wih coc
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Dafny 
-Plug 'mlr-msft/vim-loves-dafny', {'for': 'dafny'}
+" Fugitive is the premier Vim plugin for Git
+Plug 'tpope/vim-fugitive'
 
 " Initialize plugin system
 call plug#end()
@@ -108,16 +108,21 @@ set ttymouse=sgr
 
 " compiles a LaTeX document when the file is saved
 " autocmd BufWritePost *.tex silent! execute "!pdflatex % >/dev/null 2>&1 &" | redraw!
+autocmd BufWritePost *.tex silent! execute "!make >/dev/null 2>&1 &" | redraw!
 
 " opens pdf file with zathura
-" command Zathura execute "!zathura " . (join(split(expand("%"), '\.')[:-2], ".") . ".pdf") . " &"
+command Zathura execute "!zathura " . (join(split(expand("%"), '\.')[:-2], ".") . ".pdf") . " &"
 
-au filetype *tex nmap <silent> <F4> :VimtexCompile<CR>
-
-let g:vimtex_view_method = 'zathura'
+"let g:vimtex_view_method = 'zathura'
 let g:tex_flavor = 'latex'
 
-autocmd FileType tex set spell spelllang=de_DE
+let g:vimtex_compiler_latexmk = {
+    \ 'options' : [
+    \   '-shell-escape',
+    \ ],
+    \}
+
+autocmd FileType tex set spell spelllang=de
 
 "-- VimTex --"
 
@@ -190,17 +195,3 @@ endfunction
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
 "-- Coc -\"
-
-
-"/- Dafny --"
-
-" (optional) set your leader key (the default is <\>)
-let mapleader=","
-" Tell Syntastic to:
-" - check files on save.
-" - but only check Dafny files when requested.
-let g:syntastic_mode_map = {
-        \ "mode": "active",
-        \ "passive_filetypes": ["dafny"] }
-
-"-- Dafny -\"
