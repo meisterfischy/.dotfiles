@@ -30,6 +30,8 @@ Plug 'roxma/vim-hug-neovim-rpc'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Fugitive is the premier Vim plugin for Git
 Plug 'tpope/vim-fugitive'
+" Vim files for editing Salt files
+Plug 'saltstack/salt-vim'
 
 " Initialize plugin system
 call plug#end()
@@ -100,6 +102,14 @@ command W execute 'w !sudo tee "%"'
 " Fixes mouse not working properly in Vim
 set ttymouse=sgr
 
+" show line endings and tabs
+set listchars=tab:>\ ,trail:~,extends:>,precedes:<
+set list
+
+" Salt Vim 
+set nocompatible
+filetype plugin indent on
+
 "-- Misc -\"
 
 
@@ -108,7 +118,22 @@ set ttymouse=sgr
 
 " compiles a LaTeX document when the file is saved
 " autocmd BufWritePost *.tex silent! execute "!pdflatex % >/dev/null 2>&1 &" | redraw!
-autocmd BufWritePost *.tex silent! execute "!make >/dev/null 2>&1 &" | redraw!
+autocmd FileType tex nnoremap <silent> <F8> :call CompileLatex()<CR>
+autocmd FileType tex nnoremap <silent> <F9> :execute '!latexmk -c'<CR> | redraw!
+
+function CompileLatex()
+    let log=expand('%:r') . '.log'
+    w
+    silent! bdelete log
+    call system('latexmk -Werror -pdf ' . expand('%'))
+    if v:shell_error == 12
+        set splitbelow
+        15sp|view ub.log
+        silent! /!
+        normal zt
+        wincm k
+    endif
+endfunction
 
 " opens pdf file with zathura
 command Zathura execute "!zathura " . (join(split(expand("%"), '\.')[:-2], ".") . ".pdf") . " &"
@@ -122,7 +147,7 @@ let g:vimtex_compiler_latexmk = {
     \ ],
     \}
 
-autocmd FileType tex set spell spelllang=de
+autocmd FileType tex set spell spelllang=de,en
 
 "-- VimTex --"
 
