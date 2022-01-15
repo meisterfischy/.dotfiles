@@ -1,0 +1,30 @@
+---
+configs:
+  - termite
+  - alacritty
+  - i3
+  - i3status
+  - nvim
+  - vim
+  - rofi
+  - picom
+  - xinitrc
+  - zathura
+  - bash
+
+termite:
+  fontSize: 15
+
+alacritty:
+  fontSize: 9
+
+i3:
+  termite: true
+  workspacePos: false
+  suspend: true
+
+i3status:
+  wlan: wlan0
+
+xinitrc:
+  wm: []
