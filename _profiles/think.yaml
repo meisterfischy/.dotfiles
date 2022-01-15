@@ -1,0 +1,17 @@
+---
+termite:
+  fontSize: 15
+
+alacritty:
+  fontSize: 9
+
+i3:
+  termite: true
+  workspacePos: false
+  suspend: true
+
+i3status:
+  wlan: wlan0
+
+xinitrc:
+  wm: []
