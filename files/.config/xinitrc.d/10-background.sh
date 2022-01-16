@@ -2,7 +2,7 @@
 
 #Screen background feh
 
-pics=(/home/koe/Dokumente/Sync/Pictures/Wallpaper/b_*)
+pics=(/home/koe/Nextcloud/Pictures/Wallpaper/b_*)
 len=${#pics[*]}
 ran=$(($RANDOM % len))
 

@@ -27,7 +27,7 @@ ethernet _first_ {
         format_down = "E: down"
 }
 
-wireless wlp4s0 {
+wireless {{ i3status.wlan }} {
         format_up = "W: %quality at %essid, %bitrate, %ip"
         format_down = "W: down"
 }
