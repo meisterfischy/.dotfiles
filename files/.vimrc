@@ -168,8 +168,7 @@ augroup END
 "/- ALE + Deoplete --"
 
 " Use deoplete.
-
-autocmd FileType haskell call deoplete#enable()
+"autocmd FileType haskell call deoplete#enable()
 
 let g:ale_linters = {
             \   'haskell': ['ghc','hls','hlint','stylish-haskell','hindent'],

@@ -7,6 +7,7 @@
 
 export PATH="$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH:$HOME/.local/bin"
 
+# Andorid build
 #ccache -M 50G
 #export USE_CCACHE=1
 #export CCACHE_EXEC=/usr/bin/ccache
@@ -17,6 +18,7 @@ alias htop='htop -s PERCENT_CPU'
 alias ssh="TERM=xterm-color ssh"
 alias mdkir='mkdir'
 alias brexit='exit'
+alias sudo='sudo -v; sudo '
 
 #PS1='[\u@\h \W]\$ '
 

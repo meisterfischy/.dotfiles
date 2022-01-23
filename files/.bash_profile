@@ -7,4 +7,6 @@ if [ -n "$DESKTOP_SESSION" ];then
     export SSH_AUTH_SOCK
 fi
 
+export GPG_TTY=$(tty)
+
 [[ -f ~/.bashrc ]] && . ~/.bashrc
