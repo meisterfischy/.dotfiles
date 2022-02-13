@@ -131,10 +131,13 @@ function CompileLatex()
     let log=expand('%:r') . '.log'
     w
     silent! bdelete log
-    call system('latexmk -Werror -pdf ' . expand('%'))
+    "call system('latexmk -Werror -pdf ' . expand('%'))
+    call system('latexmk -Werror -shell-escape -pdf ' . expand('%'))
     if v:shell_error == 12
+        echo log
         set splitbelow
-        15sp|view ub.log
+        15sp
+        execute 'view' log
         silent! /!
         normal zt
         wincm k
