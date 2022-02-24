@@ -6,10 +6,7 @@ call plug#begin('~/.vim/plugged')
 " Rainbow Parentheses
 Plug 'frazrepo/vim-rainbow'
 " ColorScheme
-Plug 'joshdick/onedark.vim'
 Plug 'sainnhe/sonokai'
-" Vim for LaTeX
-Plug 'lervag/vimtex', { 'for': 'tex' }
 " File System Explorer
 Plug 'preservim/nerdtree'
 " Status/Tabline
@@ -28,13 +25,6 @@ Plug 'tpope/vim-fugitive'
 " Vim files for editing Salt files
 Plug 'saltstack/salt-vim'
 
-"" Asynchronous Lint Engine
-"Plug 'dense-analysis/ale'
-"" Code Completion with ale + completor
-"Plug 'Shougo/deoplete.nvim'
-"Plug 'roxma/nvim-yarp'
-"Plug 'roxma/vim-hug-neovim-rpc'
-
 " Initialize plugin system
 call plug#end()
 
@@ -47,23 +37,6 @@ let g:rainbow_guifgs = ['RoyalBlue3', 'DarkOrange3', 'DarkOrchid3', 'FireBrick']
 let g:rainbow_ctermfgs = ['lightblue', 'lightgreen', 'yellow', 'red', 'magenta']
 
 colorscheme sonokai
-
-"" onedark.vim override: Don't set a background color when running in a terminal;
-"" just use the terminal's background color
-"" `gui` is the hex color code used in GUI mode/nvim true-color mode
-"" `cterm` is the color code used in 256-color mode
-"" `cterm16` is the color code used in 16-color mode
-"if (has("autocmd") && !has("gui_running"))
-"  augroup colorset
-"    autocmd!
-"    let s:white = { "gui": "#ABB2BF", "cterm": "145", "cterm16" : "7" }
-"    autocmd ColorScheme * call onedark#set_highlight("Normal", { "fg": s:white }) " `bg` will not be styled since there is no `bg` setting
-"  augroup END
-"endif
-"
-"let g:airline#extensions#tabline#enabled = 1
-"let g:airline_theme='onedark'
-
 
 " Enable sytax highlighting
 filetype plugin on
@@ -120,10 +93,8 @@ filetype plugin indent on
 
 
 
-"-- VimTex --" 
+"-- LaTeX --" 
 
-" compiles a LaTeX document when the file is saved
-" autocmd BufWritePost *.tex silent! execute "!pdflatex % >/dev/null 2>&1 &" | redraw!
 autocmd FileType tex nnoremap <silent> <F8> :call CompileLatex()<CR>
 autocmd FileType tex nnoremap <silent> <F9> :execute '!latexmk -c'<CR> | redraw!
 
@@ -148,15 +119,6 @@ endfunction
 " opens pdf file with zathura
 command Zathura execute "!zathura " . (join(split(expand("%"), '\.')[:-2], ".") . ".pdf") . " &"
 
-"let g:vimtex_view_method = 'zathura'
-let g:tex_flavor = 'latex'
-
-let g:vimtex_compiler_latexmk = {
-    \ 'options' : [
-    \   '-shell-escape',
-    \ ],
-    \}
-
 autocmd FileType tex set spell spelllang=de,en
 
 "-- VimTex --"
@@ -172,21 +134,6 @@ augroup HoogleMaps
 augroup END
 
 "-- Haskell -/"
-
-
-
-""/- ALE + Deoplete --"
-"
-"" Use deoplete.
-""autocmd FileType haskell call deoplete#enable()
-"
-"
-"let g:ale_enabled = 0
-"let b:ale_linters = {
-"            \   'haskell': ['ghc','hls','hlint','stylish-haskell','hindent'],
-"            \}
-"
-""-- ALE + Deoplete -\"
 
 
 
