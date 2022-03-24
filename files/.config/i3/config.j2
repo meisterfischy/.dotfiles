@@ -63,7 +63,7 @@ bindsym $mod+Shift+Return exec alacritty --class AlacrittyF
 {% if i3.suspend %}
 bindsym $mod+Shift+L exec "systemctl suspend"
 {% else %}
-bindsym $mod+Shift+l exec "i3lock -i ~/Nextcloud/Pictures/Wallpaper/b_1.jpg -t -u"
+bindsym $mod+Shift+l exec "i3lock -i ~/Nextcloud/Pics/Wallpaper/b_1.jpg -t -u"
 {% endif %}
 
 # kill focused window
@@ -154,9 +154,9 @@ set $ws19 "19"
 set $ws20 "20"
 
 {% if i3.workspacePos %}
-set $monc "DVI-D-0"
-set $monl "HDMI-A-0"
-set $monr "DisplayPort-0"
+set $monc "DisplayPort-0"
+set $monl "DisplayPort-1"
+set $monr "HDMI-A-1"
 
 workspace $ws1 output $monc
 workspace $ws2 output $monl

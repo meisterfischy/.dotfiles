@@ -6,6 +6,6 @@ pics=(/home/koe/Nextcloud/Pics/Wallpaper/b_*)
 len=${#pics[*]}
 ran=$(($RANDOM % len))
 
-feh --bg-max ${pics[$ran]}
+feh --bg-fill ${pics[$ran]}
 
 unset pics len ran

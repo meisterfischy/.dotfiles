@@ -3,4 +3,4 @@
 {{ xinitrc.wm.custom | default("") }}
 picom &
 
-i3
+xrdb -merge ~/.Xresources && exec i3

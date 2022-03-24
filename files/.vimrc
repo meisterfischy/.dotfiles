@@ -24,6 +24,8 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'tpope/vim-fugitive'
 " Vim files for editing Salt files
 Plug 'saltstack/salt-vim'
+" Signify (or just Sy) uses the sign column to indicate added, modified and removed lines in a file that is managed by a version control system (VCS).
+Plug 'mhinz/vim-signify'
 
 " Initialize plugin system
 call plug#end()
@@ -88,6 +90,8 @@ set list
 " Salt Vim 
 set nocompatible
 filetype plugin indent on
+
+nmap <silent> <F12> :SignifyToggle<CR>
 
 "-- Misc -\"
 
@@ -161,11 +165,6 @@ if has('nvim')
 else
   inoremap <silent><expr> <c-@> coc#refresh()
 endif
-
-" Make <CR> auto-select the first completion item and notify coc.nvim to
-" format on enter, <cr> could be remapped by other vim plugin
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
