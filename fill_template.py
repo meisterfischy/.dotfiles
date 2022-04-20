@@ -1,3 +1,5 @@
+#!/bin/python
+
 import yaml
 import sys
 from jinja2 import Environment, FileSystemLoader
