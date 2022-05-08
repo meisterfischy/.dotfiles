@@ -19,7 +19,7 @@ alias ssh="TERM=xterm-color ssh"
 alias mdkir='mkdir'
 alias brexit='exit'
 alias sudo='sudo -v; sudo '
-alias cs='cd /home/koe/Studium/WiSe22'
+alias cs='cd /home/koe/Studium/SoSe22'
 
 #PS1='[\u@\h \W]\$ '
 

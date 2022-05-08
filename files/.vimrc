@@ -72,6 +72,15 @@ nmap <silent> <F1> :NERDTreeToggle<CR>
 set splitright
 nmap <silent> <F10> :call OpenTerminal()<CR>
 
+nmap <silent> <C-F10> :tab ter<CR>
+
+" Make this nicer!!
+tnoremap <S-Tab> <C-W>:tabprevious<CR>
+nmap <silent> <S-Left> :tabprevious<CR>
+nmap <silent> <S-Right> :tabnext<CR>
+
+tnoremap <S-Tab> <C-W>:tabprevious<CR>
+
 function OpenTerminal()
     bel term
     resize 20
