@@ -20,6 +20,7 @@ alias mdkir='mkdir'
 alias brexit='exit'
 alias sudo='sudo -v; sudo '
 alias cs='cd /home/koe/Studium/SoSe22'
+alias penis='echo hihi'
 
 #PS1='[\u@\h \W]\$ '
 
