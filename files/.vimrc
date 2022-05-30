@@ -79,8 +79,6 @@ tnoremap <S-Tab> <C-W>:tabprevious<CR>
 nmap <silent> <S-Left> :tabprevious<CR>
 nmap <silent> <S-Right> :tabnext<CR>
 
-tnoremap <S-Tab> <C-W>:tabprevious<CR>
-
 function OpenTerminal()
     bel term
     resize 20
@@ -151,6 +149,8 @@ augroup END
 
 
 "/- CoC --"
+
+let mapleader = ","
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
