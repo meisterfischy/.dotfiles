@@ -71,22 +71,35 @@ highlight LineNr ctermfg=240
 nmap <silent> <F1> :NERDTreeToggle<CR>
 
 " Terminal in vertical split
-set splitright
-nmap <silent> <F10> :call OpenTerminal()<CR>
+nmap <silent> <F10> :call OpenVTerminal()<CR>
 
+" TODO If VTerminal is open, open a new tab and change the buffer.
+"      If not, create the VTerminal in new tab
+"      Perhaps check if the vterminal_bufferidt variable is set and
+"      look if the buffer looks right, aka check :buffers
 nmap <silent> <C-F10> :tab ter<CR>
 
-" Make this nicer!!
-tnoremap <S-Tab> <C-W>:tabprevious<CR>
 nmap <silent> <S-Left> :tabprevious<CR>
 nmap <silent> <S-Right> :tabnext<CR>
 
-function OpenTerminal()
+function OpenVTerminal()
     let height = winheight(0)
-    bel term
+    let g:vterminal_bufferid = bufnr()
+    bo term
+    let g:vterminal_bufferidt = bufnr()
     let g:vterminal_coverage = get(g:, 'vterminal_coverage', 0.33)
     exe "resize" height * g:vterminal_coverage
 endfunction
+
+function SwitchTerminal()
+    if bufnr() == g:vterminal_bufferid
+        exe g:vterminal_bufferidt .. "wincm w"
+    else
+        exe g:vterminal_bufferid .. "wincm w"
+    endif
+endfunction
+tnoremap <S-Tab> <C-W>:call SwitchTerminal()<CR>
+nnoremap <S-Tab>:call SwitchTerminal()<CR>
 
 " reload vimrc
 nmap <silent> <S-F12> :so $MYVIMRC<CR>
@@ -120,7 +133,7 @@ function CompileLatex()
     let log=expand('%:r') . '.log'
     w
     silent! bdelete log
-    "call system('latexmk -Werror -pdf ' . expand('%'))
+    " TODO add global variable for latexmk options
     call system('latexmk -Werror -shell-escape -pdf ' . expand('%'))
     if v:shell_error == 12
         echo log
