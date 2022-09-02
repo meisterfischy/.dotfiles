@@ -28,6 +28,7 @@ Plug 'saltstack/salt-vim'
 Plug 'mhinz/vim-signify'
 " Vim syntax files for the shakespeare templating languages used by Yesod.
 Plug 'pbrisbin/vim-syntax-shakespeare'
+Plug 'meisterfischy/vterminal'
 
 " Initialize plugin system
 call plug#end()
@@ -70,48 +71,12 @@ highlight LineNr ctermfg=240
 " Open Nerd Tree
 nmap <silent> <F1> :NERDTreeToggle<CR>
 
-" TODO If VTerminal is open, open a new tab and change the buffer.
-"      If not, create the VTerminal in new tab
-"      Perhaps check if the vterminal_bufferidt variable is set and
-"      look if the buffer looks right, aka check :buffers
-nmap <silent> <C-F10> :tab ter<CR>
-
 nmap <silent> <S-Left> :tabprevious<CR>
 nmap <silent> <S-Right> :tabnext<CR>
 
-function OpenVTerminal()
-    " Test if g:vterminal_bufferidt is set, if yes call SwitchTerminal
-    let height = winheight(0)
-    let g:vterminal_bufferid = winnr()
-    bo term
-    let g:vterminal_bufferidt = winnr()
-    let g:vterminal_coverage = get(g:, 'vterminal_coverage', 0.33)
-    exe "resize" height * g:vterminal_coverage
-    set wfh
-endfunction
-
-function Cleanup()
-    if exists("g:vterminal_bufferidt") && g:vterminal_bufferidt == winnr()
-        unlet g:vterminal_bufferidt
-    endif
-    if exists("g:vterminal_bufferid") && g:vterminal_bufferid == winnr()
-        unlet g:vterminal_bufferid
-    endif
-endfunction
-
-autocmd BufWinLeave * call Cleanup()
-
-function SwitchTerminal()
-    if winnr() == g:vterminal_bufferid
-        exe g:vterminal_bufferidt .. "wincm w"
-    else
-        exe g:vterminal_bufferid .. "wincm w"
-    endif
-endfunction
-tnoremap <silent> <S-Tab> <C-W>:call SwitchTerminal()<CR>
-nnoremap <silent> <S-Tab> :call SwitchTerminal()<CR>
-" Terminal in vertical split
-nmap <silent> <F10> :call OpenVTerminal()<CR>
+nmap <silent> <F10> :VTermOpen<CR>
+tnoremap <silent> <S-Tab> <C-W>:VTermSwitch<CR>
+nnoremap <silent> <S-Tab> :VTermSwitch<CR>
 
 " reload vimrc
 nmap <silent> <S-F12> :so $MYVIMRC<CR>
