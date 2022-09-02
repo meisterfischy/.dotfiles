@@ -1,6 +1,6 @@
 ---
 termite:
-  fontSize: 15
+  fontSize: 14
 
 alacritty:
   fontSize: 9
@@ -11,7 +11,7 @@ i3:
   suspend: true
 
 i3status:
-  wlan: wlan0
+  wlan: wlp4s0
 
 xinitrc:
   wm: []
