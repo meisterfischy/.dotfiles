@@ -17,6 +17,7 @@ alias ls='ls --color=auto'
 alias htop='htop -s PERCENT_CPU'
 alias ssh="TERM=xterm-color ssh"
 alias mdkir='mkdir'
+alias mkidr='mkdir'
 alias brexit='exit'
 alias sudo='sudo -v; sudo '
 alias cs='cd /home/koe/Studium/SoSe22'
