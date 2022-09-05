@@ -74,7 +74,8 @@ nmap <silent> <F1> :NERDTreeToggle<CR>
 nmap <silent> <S-Left> :tabprevious<CR>
 nmap <silent> <S-Right> :tabnext<CR>
 
-nmap <silent> <F10> :VTermOpen<CR>
+nmap <silent> <F10> :VTermToggle<CR>
+tmap <silent> <F10> <C-W>:VTermToggle<CR>
 tnoremap <silent> <S-Tab> <C-W>:VTermSwitch<CR>
 nnoremap <silent> <S-Tab> :VTermSwitch<CR>
 
