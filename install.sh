@@ -5,7 +5,7 @@ olddir=.dotfiles_old
 home=$(echo $HOME | sed 's/\//\\\//g')
 
 if [ "$#" -ne 1 ]; then
-    echo "Expected one argument: arch | think"
+    echo "Expected one argument: $(ls _profiles | tr '\n' ' ' | sed 's/.yaml//g')"
     exit 2
 fi
 
