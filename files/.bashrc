@@ -20,11 +20,19 @@ alias mdkir='mkdir'
 alias mkidr='mkdir'
 alias brexit='exit'
 alias sudo='sudo -v; sudo '
-alias cs='cd /home/koe/Studium/SoSe22'
+alias st='cd /home/koe/Studium/$(current_semester)'
 alias penis='echo hihi'
 
-#PS1='[\u@\h \W]\$ '
-
+function current_semester() {
+    max=""
+    for sem in $(ls "$HOME/Studium" | grep -E "(So)|(Wi)Se[[:digit:]]{2}")
+    do
+        if [[ ${#max} -lt 6 || ${sem:4:6} -gt ${max:4:6} || $sem < $max ]]; then
+            max=$sem
+        fi
+    done
+    echo $max
+}
 
 # get current branch in git repo
 function parse_git_branch() {

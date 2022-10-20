@@ -284,10 +284,15 @@ bar {
 default_border pixel 3
 default_floating_border pixel 3
 hide_edge_borders smart
+for_window [all] border pixel 0
 
-#titanfall
+# To identify object use xprop
 for_window [instance="origin"] floating enable
 for_window [class="steam_app_1182480"] floating enable
+for_window [class="battle.net.exe"] floating enable
+for_window [class="overwatch.exe"] floating enable
+for_window [class="riotclientux.exe"] floating enable
+for_window [class="leagueclientux.exe"] floating enable
 
 {{ i3.custom | default("") }}
 
