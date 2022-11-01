@@ -6,13 +6,12 @@ call plug#begin('~/.vim/plugged')
 " Rainbow Parentheses
 Plug 'frazrepo/vim-rainbow'
 " ColorScheme
-Plug 'sainnhe/sonokai'
+Plug 'joshdick/onedark.vim'
 " File System Explorer
 Plug 'preservim/nerdtree'
 " Status/Tabline
 Plug 'vim-airline/vim-airline'
-" For the i3 config
-Plug 'mboughaba/i3config.vim'
+Plug 'vim-airline/vim-airline-themes'
 " For Hoogle
 Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all'}
 Plug 'monkoose/fzf-hoogle.vim'
@@ -41,7 +40,24 @@ let g:rainbow_active = 1
 let g:rainbow_guifgs = ['RoyalBlue3', 'DarkOrange3', 'DarkOrchid3', 'FireBrick']
 let g:rainbow_ctermfgs = ['lightblue', 'lightgreen', 'yellow', 'red', 'magenta']
 
-colorscheme sonokai
+let g:airline_theme='onedark'
+
+colorscheme onedark
+
+" onedark.vim override: Don't set a background color when running in a
+" terminal;
+" just use the terminal's background color
+" `gui` is the hex color code used in GUI mode/nvim true-color mode
+" `cterm` is the color code used in 256-color mode
+" `cterm16` is the color code used in 16-color mode
+if (has("autocmd") && !has("gui_running"))
+    augroup colorset
+        autocmd!
+        let s:white = { "gui": "#ABB2BF", "cterm": "145", "cterm16" : "7"}
+        autocmd ColorScheme * call onedark#set_highlight("Normal", {"fg": s:white }) " `bg` will not be styled since there is no `bg` setting
+        autocmd ColorScheme * call onedark#set_highlight("Terminal", {"fg": s:white }) " `bg` will not be styled since there is no `bg` setting
+    augroup END
+endif
 
 " Enable sytax highlighting
 filetype plugin on

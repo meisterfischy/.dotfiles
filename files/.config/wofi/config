@@ -1,0 +1,11 @@
+show=drun
+
+height=99%
+width=25%
+
+xoffset=0
+yoffset=-25
+
+insensitive=true
+
+allow_images=true
