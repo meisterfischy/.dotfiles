@@ -18,7 +18,7 @@ set $term foot
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $menu wofi --
+set $menu rofi -show drun --
 
 ### Output configuration
 #
@@ -66,6 +66,8 @@ input "type:keyboard" {
     xkb_layout "de"
     xkb_options caps:swapescape
 }
+
+input "1386:21013:Wacom_HID_5215_Finger" map_to_output "eDP-1"
 
 ### Key bindings
 #
@@ -282,6 +284,7 @@ exec keepassxc
 exec env RUST_BACKTRACE=1 RUST_LOG=swayr=debug swayrd > /tmp/swayrd.log 2>&1
 # Somehow if we don't wait, nextcloud gets started before the bar is ready
 exec sleep 1 && nextcloud
+exec /home/koe/.local/bin/iio-sway
 
 for_window [app_id="org.keepassxc.KeePassXC"] move scratchpad
 

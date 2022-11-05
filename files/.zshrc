@@ -3,6 +3,9 @@ HISTSIZE=1000
 SAVEHIST=1000
 
 fpath=("$HOME/.zprompts" "$fpath[@]")
+typeset -U path PATH
+path=(~/.local/bin $path)
+export PATH
 
 # Use vim mode
 bindkey -v
@@ -71,3 +74,11 @@ add-zsh-hook -Uz precmd rehash_precmd
 alias ls="ls --color=auto"
 alias ssh="TERM=xterm-color ssh"
 alias sudo='sudo -v; sudo '
+alias ua-drop-caches='sudo paccache -rk3; yay -Sc --aur --noconfirm'
+alias ua-update-all='export TMPFILE="$(mktemp)"; \
+        sudo true; \
+        rate-mirrors --save=$TMPFILE arch --max-delay=21600 \
+            && sudo mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist-backup \
+            && sudo mv $TMPFILE /etc/pacman.d/mirrorlist \
+            && ua-drop-caches \
+            && yay -Syyu --noconfirm'
