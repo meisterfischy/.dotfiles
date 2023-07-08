@@ -28,6 +28,8 @@ Plug 'mhinz/vim-signify'
 " Vim syntax files for the shakespeare templating languages used by Yesod.
 Plug 'pbrisbin/vim-syntax-shakespeare'
 Plug 'meisterfischy/vterminal'
+" Zig
+Plug 'ziglang/zig.vim'
 
 " Initialize plugin system
 call plug#end()
@@ -114,6 +116,9 @@ filetype plugin indent on
 
 nmap <silent> <F12> :SignifyToggle<CR>
 
+" Zig: Don't automatically format on save
+let g:zig_fmt_autosave = 0
+
 "-- Misc -\"
 
 
@@ -128,8 +133,8 @@ function CompileLatex()
     w
     silent! bdelete log
     " TODO add global variable for latexmk options
-    call system('latexmk -Werror -shell-escape -pdf ' . expand('%'))
-    if v:shell_error == 12
+    call system('pdflatex --interaction=nonstopmode' . expand('%'))
+    if v:shell_error == 1
         echo log
         set splitbelow
         15sp

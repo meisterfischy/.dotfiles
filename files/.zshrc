@@ -4,7 +4,7 @@ SAVEHIST=1000
 
 fpath=("$HOME/.zprompts" "$fpath[@]")
 typeset -U path PATH
-path=(~/.local/bin $path)
+path=("$HOME/.cabal/bin" "$HOME/.ghcup/bin" "$HOME/.local/bin" "$path[@]")
 export PATH
 
 # Use vim mode
@@ -70,10 +70,16 @@ rehash_precmd() {
 add-zsh-hook -Uz precmd rehash_precmd
 
 
+mkcdir () {
+    mkdir -p -- "$1" &&
+       cd -P -- "$1"
+}
+
 # Aliases
 alias ls="ls --color=auto"
+alias prolog="swipl"
 alias ssh="TERM=xterm-color ssh"
-alias sudo='sudo -v; sudo '
+alias sudo='sudo -v && sudo '
 alias ua-drop-caches='sudo paccache -rk3; yay -Sc --aur --noconfirm'
 alias ua-update-all='export TMPFILE="$(mktemp)"; \
         sudo true; \
@@ -82,3 +88,5 @@ alias ua-update-all='export TMPFILE="$(mktemp)"; \
             && sudo mv $TMPFILE /etc/pacman.d/mirrorlist \
             && ua-drop-caches \
             && yay -Syyu --noconfirm'
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
