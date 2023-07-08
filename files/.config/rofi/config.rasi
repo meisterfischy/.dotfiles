@@ -1,6 +1,7 @@
 configuration {
- modi: "window,drun,ssh,run";
- combi-modi: "window,drun,ssh,run";
- show-icons: true;
+    modi: "drun";
+    font: "Hack 12";
+    show-icons: true;
 }
+
 @theme "custom"

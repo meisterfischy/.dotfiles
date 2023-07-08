@@ -18,7 +18,7 @@ set $term foot
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $menu wofi --
+set $menu rofi -show drun --
 
 ### Output configuration
 #
@@ -30,6 +30,11 @@ output * bg /usr/share/backgrounds/EldenRing.jpg fill
 #   output HDMI-A-1 resolution 1920x1080 position 1920,0
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
+output DP-1 resolution 2560x1440@165Hz position 0,0
+output DP-1 adaptive_sync on
+output DP-3 resolution 1920x1080@144Hz position -1920,0
+output HDMI-A-1 resolution 1920x1080@60Hz position 2560,0
+output DP-2 resolution 1920x1080@60Hz position 2560,1080
 
 ### Idle configuration
 #
@@ -73,6 +78,8 @@ input "type:keyboard" {
 #
     # Start a terminal
     bindsym $mod+Return exec $term
+    for_window [title="TerminaleFloating"] floating enable
+    bindsym $mod+Shift+Return exec $term -T "TerminaleFloating"
 
     # Kill focused window
     bindsym $mod+Shift+q kill
@@ -81,6 +88,7 @@ input "type:keyboard" {
     bindsym $mod+Tab exec $menu
 
     bindsym $mod+Shift+b exec firefox
+    bindsym $mod+Shift+m exec spotify
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -91,6 +99,8 @@ input "type:keyboard" {
 
     # Reload the configuration file
     bindsym $mod+Shift+c reload
+
+    bindsym $mod+Shift+e exec killall -q -0 wlogout || wlogout
 
     # Exit sway (logs you out of your Wayland session)
     bindsym $mod+Shift+Tab exec env RUST_BACKTRACE=1 swayr switch-window >> /tmp/swayr.log 2>&1
@@ -106,6 +116,10 @@ input "type:keyboard" {
     bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
     bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
     bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+    bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
+    bindsym XF86AudioStop exec --no-startup-id playerctl stop
+    bindsym XF86AudioPrev exec --no-startup-id playerctl previous
+    bindsym XF86AudioNext exec --no-startup-id playerctl next
 #
 # Moving around:
 #
@@ -276,13 +290,20 @@ exec wl-paste -t text --watch clipman store --no-persist
 # Authentication agent
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
-exec touchegg
 exec swaync
 exec keepassxc
 exec env RUST_BACKTRACE=1 RUST_LOG=swayr=debug swayrd > /tmp/swayrd.log 2>&1
 # Somehow if we don't wait, nextcloud gets started before the bar is ready
 exec sleep 1 && nextcloud
 
-for_window [app_id="org.keepassxc.KeePassXC"] move scratchpad
+# for_window [app_id="org.keepassxc.KeePassXC"] move scratchpad
+for_window [title="REDlauncher"] floating enable
 
 include /etc/sway/config.d/*
+
+exec noisetorch -i -s alsa_input.usb-BEHRINGER_UMC204HD_192k-00.HiFi__umc204hd_mono_in_U192k_0_0__source
+
+# Flameshot
+exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
+exec hash dbus-update-activation-environment 2>/dev/null && \
+     dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
