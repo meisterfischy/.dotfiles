@@ -72,6 +72,8 @@ input "type:keyboard" {
     xkb_options caps:swapescape
 }
 
+input "1386:21013:Wacom_HID_5215_Finger" map_to_output "eDP-1"
+
 ### Key bindings
 #
 # Basics:
@@ -295,6 +297,7 @@ exec keepassxc
 exec env RUST_BACKTRACE=1 RUST_LOG=swayr=debug swayrd > /tmp/swayrd.log 2>&1
 # Somehow if we don't wait, nextcloud gets started before the bar is ready
 exec sleep 1 && nextcloud
+exec /home/koe/.local/bin/iio-sway
 
 # for_window [app_id="org.keepassxc.KeePassXC"] move scratchpad
 for_window [title="REDlauncher"] floating enable
