@@ -80,13 +80,14 @@ alias ls="ls --color=auto"
 alias prolog="swipl"
 alias ssh="TERM=xterm-color ssh"
 alias sudo='sudo -v && sudo '
+alias csgo='sway input "type:keyboard" xkb_options caps:escape > /dev/null'
 alias ua-drop-caches='sudo paccache -rk3; yay -Sc --aur --noconfirm'
 alias ua-update-all='export TMPFILE="$(mktemp)"; \
-        sudo true; \
-        rate-mirrors --save=$TMPFILE arch --max-delay=21600 \
-            && sudo mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist-backup \
-            && sudo mv $TMPFILE /etc/pacman.d/mirrorlist \
-            && ua-drop-caches \
-            && yay -Syyu --noconfirm'
+    sudo true; \
+    rate-mirrors --save=$TMPFILE arch --max-delay=21600 \
+      && sudo mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist-backup \
+      && sudo mv $TMPFILE /etc/pacman.d/mirrorlist \
+      && ua-drop-caches \
+      && yay -Syyu --noconfirm'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

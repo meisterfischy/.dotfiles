@@ -30,6 +30,11 @@ Plug 'pbrisbin/vim-syntax-shakespeare'
 Plug 'meisterfischy/vterminal'
 " Zig
 Plug 'ziglang/zig.vim'
+" Unicode char with LaTeX names
+Plug 'joom/latex-unicoder.vim'
+" Edit encrypted files
+Plug 'jamessan/vim-gnupg'
+Plug 'lervag/vimtex'
 
 " Initialize plugin system
 call plug#end()
@@ -103,8 +108,11 @@ nmap <silent> <S-F12> :so $MYVIMRC<CR>
 " saves with sudo
 command Swrite execute 'w !sudo tee "%"'
 
+" copy whole file to clipboard
+command CC execute '%w !wl-copy'
+
 " Fixes mouse not working properly in Vim
-set ttymouse=sgr
+" set ttymouse=sgr
 
 " show line endings and tabs
 set listchars=tab:>\ ,trail:~,extends:>,precedes:<
@@ -124,32 +132,36 @@ let g:zig_fmt_autosave = 0
 
 
 "-- LaTeX --" 
-
-autocmd FileType tex nnoremap <silent> <F8> :call CompileLatex()<CR>
-autocmd FileType tex nnoremap <silent> <F9> :execute '!latexmk -c'<CR> | redraw!
-
-function CompileLatex()
-    let log=expand('%:r') . '.log'
-    w
-    silent! bdelete log
-    " TODO add global variable for latexmk options
-    call system('pdflatex --interaction=nonstopmode' . expand('%'))
-    if v:shell_error == 1
-        echo log
-        set splitbelow
-        15sp
-        execute 'view' log
-        silent! /!
-        normal zt
-        wincm k
-    endif
-    redraw!
-endfunction
-
-" opens pdf file with zathura
-command Zathura execute "!zathura " . (join(split(expand("%"), '\.')[:-2], ".") . ".pdf") . " &"
+" 
+" autocmd FileType tex nnoremap <silent> <F8> :call CompileLatex()<CR>
+" autocmd FileType tex nnoremap <silent> <F9> :execute '!latexmk -c'<CR> | redraw!
+" 
+" function CompileLatex()
+"     let log=expand('%:r') . '.log'
+"     w
+"     silent! bdelete log
+"     " TODO add global variable for latexmk options
+"     call system('latexmk -Werror -shell-escape -pdf ' . expand('%'))
+"     if v:shell_error == 12
+"         echo log
+"         set splitbelow
+"         15sp
+"         execute 'view' log
+"         silent! /!
+"         normal zt
+"         wincm k
+"     endif
+"     redraw!
+" endfunction
+"
+" " opens pdf file with zathura
+" command Zathura execute "!zathura " . (join(split(expand("%"), '\.')[:-2], ".") . ".pdf") . " &"
 
 autocmd FileType tex set spell spelllang=de,en
+
+" Viewer options: One may configure the viewer either by specifying a built-in
+" viewer method:
+let g:vimtex_view_method = 'zathura'
 
 "-- VimTex --"
 
@@ -168,6 +180,8 @@ augroup END
 
 
 "/- CoC --"
+
+let g:coc_filetype_map = { 'yaml.ansible': 'ansible' }
 
 let mapleader = ","
 
