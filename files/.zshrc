@@ -73,7 +73,7 @@ add-zsh-hook -Uz precmd rehash_precmd
 # Aliases
 alias ls="ls --color=auto"
 alias ssh="TERM=xterm-color ssh"
-alias sudo='sudo -v; sudo '
+alias sudo='sudo -v && sudo '
 alias csgo='sway input "type:keyboard" xkb_options caps:escape > /dev/null'
 alias ua-drop-caches='sudo paccache -rk3; yay -Sc --aur --noconfirm'
 alias ua-update-all='export TMPFILE="$(mktemp)"; \

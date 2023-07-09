@@ -35,6 +35,7 @@ output DP-1 adaptive_sync on
 output DP-3 resolution 1920x1080@144Hz position -1920,0
 output HDMI-A-1 resolution 1920x1080@60Hz position 2560,0
 output DP-2 resolution 1920x1080@60Hz position 2560,1080
+output HEADLESS-1 position -1920,1080
 
 ### Idle configuration
 #
