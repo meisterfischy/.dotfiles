@@ -65,13 +65,11 @@ button:hover {
 #tray,
 #mode,
 #idle_inhibitor,
-#scratchpad,
 #mpd {
     padding: 0 10px;
     color: #ffffff;
 }
-#custom-notification,
-#custom-drawer
+#custom-notification
 
 #window,
 #workspaces {
@@ -79,41 +77,35 @@ button:hover {
 }
 
 #clock {
-    background-color: #64727D;
+    color: #e1e1e1;
 }
 
 #custom-notification {
-    background-color: #facade;
-    color: #000000;
+    color: #e1e1e1;
     padding: 0 5px;
 }
 
-#custom-drawer {
-    background-color: #282a36;
-    color: #ffdead;
-    padding: 0 5px;
+#mpris {
+    color: #e1e1e1;
 }
 
 #battery {
-    background-color: #ffffff;
-    color: #000000;
+    color: #e1e1e1;
 }
 
 #battery.charging, #battery.plugged {
-    color: #ffffff;
-    background-color: #26A65B;
+    color: #26A65B;
 }
 
 @keyframes blink {
     to {
         background-color: #ffffff;
-        color: #000000;
+        color: #e1e1e1;
     }
 }
 
 #battery.critical:not(.charging) {
-    background-color: #f53c3c;
-    color: #ffffff;
+    color: #d10000;
     animation-name: blink;
     animation-duration: 0.5s;
     animation-timing-function: linear;
@@ -121,55 +113,33 @@ button:hover {
     animation-direction: alternate;
 }
 
-label:focus {
-    background-color: #000000;
-}
-
 #cpu {
-    background-color: #2ecc71;
-    color: #000000;
+    color: #e1e1e1;
 }
 
 #memory {
-    background-color: #9b59b6;
+    color: #e1e1e1;
 }
 
 #disk {
-    background-color: #964B00;
+    color: #e1e1e1;
 }
 
 #backlight {
-    background-color: #90b1b1;
+    color: #e1e1e1;
 }
 
 #network {
-    background-color: #2980b9;
-}
-
-#network.disconnected {
-    background-color: #f53c3c;
+    color: #e1e1e1;
+    color: #e1e1e1;
 }
 
 #pulseaudio {
-    background-color: #f1c40f;
-    color: #000000;
-}
-
-#pulseaudio.muted {
-    background-color: #90b1b1;
-    color: #2a5c45;
+    color: #e1e1e1;
 }
 
 #temperature {
-    background-color: #f0932b;
-}
-
-#temperature.critical {
-    background-color: #eb4d4b;
-}
-
-#tray {
-    background-color: transparent;
+    color: #e1e1e1;
 }
 
 #tray > .passive {
@@ -178,14 +148,12 @@ label:focus {
 
 #tray > .needs-attention {
     -gtk-icon-effect: highlight;
-    background-color: #eb4d4b;
 }
 
 #idle_inhibitor {
-    background-color: #2d3436;
+    color: #e1e1e1;
 }
 
 #idle_inhibitor.activated {
-    background-color: #ecf0f1;
-    color: #2d3436;
+    color: #ffdead;
 }

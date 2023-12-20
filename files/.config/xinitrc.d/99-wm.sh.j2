@@ -1,6 +1,0 @@
-#!/bin/sh
-
-{{ xinitrc.wm.custom | default("") }}
-picom &
-
-xrdb -merge ~/.Xresources && exec i3

@@ -67,8 +67,8 @@ input "type:keyboard" {
     xkb_options caps:swapescape
 }
 
-input "1386:21013:Wacom_HID_5215_Finger" map_to_output "eDP-1"
-input "1386:21013:Wacom_HID_5215_Pen" map_to_output "eDP-1"
+input "1386:21275:Wacom_HID_531B_Finger" map_to_output "eDP-1"
+input "1386:21275:Wacom_HID_531B_Pen" map_to_output "eDP-1"
 
 ### Key bindings
 #
@@ -102,15 +102,10 @@ input "1386:21013:Wacom_HID_5215_Pen" map_to_output "eDP-1"
     # Reload the configuration file
     bindsym $mod+Shift+c reload
 
-    bindsym $mod+Shift+e exec killall -q -0 wlogout || wlogout
-
     # Exit sway (logs you out of your Wayland session)
+    bindsym $mod+Shift+e exec $(printf "swaylock -f\nswaymsg exit\nsystemctl suspend\nshutdown now\nreboot" | rofi -dmenu -mesg "Exit?")
+
     bindsym $mod+Shift+Tab exec env RUST_BACKTRACE=1 swayr switch-window >> /tmp/swayr.log 2>&1
-
-    # Toggle control center
-    bindsym $mod+Shift+n exec swaync-client -t -sw
-
-    bindsym $mod+Shift+s exec "killall -q -0 wlogout || wlogout"
 #
 # Multimedia:
 #
@@ -294,7 +289,6 @@ exec wl-paste -t text --watch clipman store --no-persist
 # Authentication agent
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
-exec swaync
 exec keepassxc
 exec env RUST_BACKTRACE=1 RUST_LOG=swayr=debug swayrd > /tmp/swayrd.log 2>&1
 exec /home/koe/.local/bin/iio-sway
@@ -312,3 +306,6 @@ exec noisetorch -i -s alsa_input.usb-BEHRINGER_UMC204HD_192k-00.HiFi__umc204hd_m
 exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
 exec hash dbus-update-activation-environment 2>/dev/null && \
      dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
+
+# Automatically configure outputs
+exec kanshi

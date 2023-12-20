@@ -49,7 +49,19 @@ source /usr/share/fzf/completion.zsh
 autoload -Uz promptinit
 promptinit
 
-prompt fadec "#EECFA1" "#282a36" "#EECFA1" transparent
+local fadebar_cwd="#EECFA1"
+local userhost="#282a36"
+local date="#EECFA1"
+local bg=transparent
+
+local -A schars
+autoload -Uz prompt_special_chars
+prompt_special_chars
+
+PS1="%F{$fadebar_cwd}%B%K{$fadebar_cwd}$schars[333]$schars[262]$schars[261]$schars[260]%F{$userhost}%K{$fadebar_cwd}%B%n@%m%b%F{$fadebar_cwd}%K{$bg}$schars[333]$schars[262]$schars[261]$schars[260]%F{$date}%B %D{%a %b %d} %D{%I:%M:%S%P} $prompt_newline%F{$fadebar_cwd}%B%(?..[%F{#ffffff}%?%F{$fadebar_cwd}] )%~/%b%k%f "
+PS2="%F{$fadebar_cwd}%K{$bg}$schars[333]$schars[262]$schars[261]$schars[260]%f%k>"
+
+prompt_opts=(cr subst percent)
 
 
 # On-demand rehash
@@ -76,6 +88,7 @@ mkcdir () {
 }
 
 # Aliases
+alias emacs="emacs -nw"
 alias ls="ls --color=auto"
 alias prolog="swipl"
 alias ssh="TERM=xterm-color ssh"

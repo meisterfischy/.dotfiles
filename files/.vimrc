@@ -132,30 +132,6 @@ let g:zig_fmt_autosave = 0
 
 
 "-- LaTeX --" 
-" 
-" autocmd FileType tex nnoremap <silent> <F8> :call CompileLatex()<CR>
-" autocmd FileType tex nnoremap <silent> <F9> :execute '!latexmk -c'<CR> | redraw!
-" 
-" function CompileLatex()
-"     let log=expand('%:r') . '.log'
-"     w
-"     silent! bdelete log
-"     " TODO add global variable for latexmk options
-"     call system('latexmk -Werror -shell-escape -pdf ' . expand('%'))
-"     if v:shell_error == 12
-"         echo log
-"         set splitbelow
-"         15sp
-"         execute 'view' log
-"         silent! /!
-"         normal zt
-"         wincm k
-"     endif
-"     redraw!
-" endfunction
-"
-" " opens pdf file with zathura
-" command Zathura execute "!zathura " . (join(split(expand("%"), '\.')[:-2], ".") . ".pdf") . " &"
 
 autocmd FileType tex set spell spelllang=de,en
 

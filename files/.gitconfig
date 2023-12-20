@@ -4,3 +4,5 @@
 	signingkey = 21D0CB95284EF618
 [color]
 	ui = auto
+[init]
+	defaultBranch = main
